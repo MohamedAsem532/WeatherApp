@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="icon" type="" href="images/clouds.png">
+    <link rel="icon" type="" href="images/clouds.png" />
   </head>
   <body>
     <div class="card">
@@ -17,6 +17,9 @@
         <button>
           <img src="images/search.png" alt="" />
         </button>
+      </div>
+      <div class="error">
+        <p>Invalid City Name</p>
       </div>
       <div class="weather">
         <img src="images/rain.png" class="weather-icon" />
@@ -40,6 +43,8 @@
         </div>
       </div>
     </div>
+
+
     <script>
       const apiKey = "d9cdacbdc84da96a1e7921cbbd5272e9"; // from openWeatherMap site
       const apiUrl =
@@ -50,36 +55,39 @@
       const weatherIcn = document.querySelector(".weather-icon");
 
       async function checkWeather(city) {
-        const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
-        const result = await response.json(); // convert by JSON the data into readable format
-        console.log(result)
-        
-        if (result.weather[0].main === "Clouds") {
-          weatherIcn.src = "images/clouds.png";
-        } else if (result.weather[0].main === "Rain") {
-          weatherIcn.src = "images/rain.png";
-        } else if (result.weather[0].main === "Clear") {
-          weatherIcn.src = "images/clear.png";
-        } else if (result.weather[0].main === "mist") {
-          weatherIcn.src = "images/mist.png";
+        try {
+          const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+          const result = await response.json(); // convert by JSON the data into readable format
+          console.log(result);
+
+          if (result.weather[0].main === "Clouds") {
+            weatherIcn.src = "images/clouds.png";
+          } else if (result.weather[0].main === "Rain") {
+            weatherIcn.src = "images/rain.png";
+          } else if (result.weather[0].main === "Clear") {
+            weatherIcn.src = "images/clear.png";
+          } else if (result.weather[0].main === "mist") {
+            weatherIcn.src = "images/mist.png";
+          }
+          document.querySelector(".city").innerHTML = result.name;
+          document.querySelector(".temp").innerHTML =
+            Math.round(result.main.temp) + "°C";
+          document.querySelector(".humidity").innerHTML =
+            result.main.humidity + " %";
+          document.querySelector(".wind").innerHTML =
+            result.wind.speed + " km/hr";
+
+          document.querySelector(".weather").style.display = "block";
+        } catch (error) {
+          console.error(error);
+          document.querySelector(".error").style.display = "block";
         }
-        document.querySelector(".city").innerHTML = result.name;
-        document.querySelector(".temp").innerHTML =
-          Math.round(result.main.temp) + "°C";
-        document.querySelector(".humidity").innerHTML =
-          result.main.humidity + " %";
-        document.querySelector(".wind").innerHTML =
-          result.wind.speed + " km/hr";
-          
-        document.querySelector(".weather").style.display = "block";
       }
-      try {
-        searchBtn.addEventListener("click", () => {
-          checkWeather(searchBox.value);
-        });
-      } catch (error) {
-        console.error(error);
-      }
+      
+      searchBtn.addEventListener("click", () => {
+        checkWeather(searchBox.value);
+        document.querySelector(".error").style.display = "none";
+      });
     </script>
   </body>
 </html>
