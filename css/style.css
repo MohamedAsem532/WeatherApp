@@ -16,7 +16,7 @@ body {
 .card {
   width: 90%;
   max-width: 590px;
-  background: linear-gradient(135deg, #00feba, #5b548a);
+  background-image:url("../images/cloudy-sky-.jpg");
   color: var(--card-color);
   margin: 100px auto;
   border-radius: 20px;
@@ -32,7 +32,7 @@ body {
   width: 90%;
   border: 0;
   outline: 0;
-  border-radius: 30px;
+  border-radius: 20px;
   padding: 20px 20px;
   height: 55px;
   max-width: 480px;
