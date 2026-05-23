@@ -71,7 +71,7 @@
           } else if (result.weather[0].main === "mist") {
             weatherIcn.src = "images/mist.png";
           }
-          document.querySelector(".city").innerHTML = result.name;
+          document.querySelector(".city").innerHTML = result.name; // From API 
           document.querySelector(".temp").innerHTML =
             Math.round(result.main.temp) + "°C";
           document.querySelector(".humidity").innerHTML =
@@ -80,7 +80,6 @@
             result.wind.speed + " km/hr";
 
           document.querySelector(".weather").style.display = "block";
-          document.querySelector(".weather").style.animation = "slideInUp 0.6s ease-out";
         } catch (error) {
           console.error(error);
           document.querySelector(".error").style.display = "block";
@@ -91,6 +90,7 @@
         checkWeather(searchBox.value);
         document.querySelector(".error").style.display = "none";
       });
+       
 
       searchBox.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
