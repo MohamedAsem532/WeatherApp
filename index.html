@@ -7,6 +7,9 @@
     <link rel="icon" type="" href="images/clouds.png" />
   </head>
   <body>
+    <div class="app-container">
+      <h1 class="app-title">Weather App</h1>
+    </div>
     <div class="card">
       <div class="search">
         <input
@@ -44,7 +47,6 @@
       </div>
     </div>
 
-
     <script>
       const apiKey = "d9cdacbdc84da96a1e7921cbbd5272e9"; // from openWeatherMap site
       const apiUrl =
@@ -78,15 +80,23 @@
             result.wind.speed + " km/hr";
 
           document.querySelector(".weather").style.display = "block";
+          document.querySelector(".weather").style.animation = "slideInUp 0.6s ease-out";
         } catch (error) {
           console.error(error);
           document.querySelector(".error").style.display = "block";
         }
       }
-      
+
       searchBtn.addEventListener("click", () => {
         checkWeather(searchBox.value);
         document.querySelector(".error").style.display = "none";
+      });
+
+      searchBox.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          checkWeather(searchBox.value);
+          document.querySelector(".error").style.display = "none";
+        }
       });
     </script>
   </body>
