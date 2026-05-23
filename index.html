@@ -26,6 +26,7 @@
       </div>
       <div class="weather">
         <img src="images/rain.png" class="weather-icon" />
+        <h2 class="weather-head">Cloudy</h2>
         <h1 class="temp">22°C</h1>
         <h2 class="city">Cairo</h2>
         <div class="details">
@@ -55,6 +56,7 @@
       const searchBox = document.querySelector(".search input");
       const searchBtn = document.querySelector(".search button");
       const weatherIcn = document.querySelector(".weather-icon");
+      const weatherHead = document.querySelector(".weather-head");
 
       async function checkWeather(city) {
         try {
@@ -63,15 +65,19 @@
           console.log(result);
 
           if (result.weather[0].main === "Clouds") {
+            weatherHead.textContent = "Cloudy";
             weatherIcn.src = "images/clouds.png";
           } else if (result.weather[0].main === "Rain") {
+            weatherHead.textContent = "Rainy";
             weatherIcn.src = "images/rain.png";
           } else if (result.weather[0].main === "Clear") {
+            weatherHead.textContent = "Clear";
             weatherIcn.src = "images/clear.png";
           } else if (result.weather[0].main === "mist") {
+            weatherHead.textContent = "Mist";
             weatherIcn.src = "images/mist.png";
           }
-          document.querySelector(".city").innerHTML = result.name; // From API 
+          document.querySelector(".city").innerHTML = result.name; // From API
           document.querySelector(".temp").innerHTML =
             Math.round(result.main.temp) + "°C";
           document.querySelector(".humidity").innerHTML =
@@ -90,7 +96,6 @@
         checkWeather(searchBox.value);
         document.querySelector(".error").style.display = "none";
       });
-       
 
       searchBox.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
